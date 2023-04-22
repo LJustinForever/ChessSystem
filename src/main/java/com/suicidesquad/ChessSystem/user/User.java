@@ -10,6 +10,15 @@ public class User {
     private LocalDate creationDate;
     private String emailAddress;
 
+    public User(Long id, String username, String password, int currency, LocalDate creationDate, String emailAddress) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.currency = currency;
+        this.creationDate = creationDate;
+        this.emailAddress = emailAddress;
+    }
+
     public User(String username, String password, int currency, LocalDate creationDate, String emailAddress) {
         this.username = username;
         this.password = password;
