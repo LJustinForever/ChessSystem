@@ -1,14 +1,28 @@
 package com.suicidesquad.ChessSystem.user;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table
 public class User {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
-    private int currency;
+    @Column(nullable = false)
+    private int currency = 0;
+    @Column(nullable = false)
     private LocalDate creationDate;
+    @Column(nullable = false)
     private String emailAddress;
+
+    public User(){}
 
     public User(Long id, String username, String password, int currency, LocalDate creationDate, String emailAddress) {
         this.id = id;
