@@ -22,10 +22,14 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public void registerUser(@RequestBody User user){
         userService.addNewUser(user);
     }
 
+    @PostMapping("/login")
+    public void loginUser(@RequestBody User user){
+        userService.loginUser(user);
+    }
 
 }

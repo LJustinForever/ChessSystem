@@ -22,10 +22,23 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void addNewUser(User user) {
+    public boolean userExists(User user){
         Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmailAddress());
-        if(userByEmail.isPresent())
+        return userByEmail.isPresent();
+    }
+
+    public void addNewUser(User user) {
+        if(userExists(user))
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email Address is taken");
+        user.encodePassword();
         userRepository.save(user);
+    }
+
+    public void loginUser(User user) {
+        if(!userExists(user))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Email not found");
+        user.encodePassword();
+        if(!userRepository.findUserByEmailAndPassword(user.getEmailAddress(), user.getPassword()).isPresent())
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect Password");
     }
 }

@@ -1,7 +1,9 @@
 package com.suicidesquad.ChessSystem.user;
 
+import com.google.common.hash.Hashing;
 import jakarta.persistence.*;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 @Entity
@@ -11,7 +13,7 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique=true)
     private String username;
     @Column(nullable = false)
     private String password;
@@ -19,7 +21,7 @@ public class User {
     private int currency = 0;
     @Column(nullable = false)
     private LocalDate creationDate;
-    @Column(nullable = false)
+    @Column(nullable = false, unique=true)
     private String emailAddress;
 
     public User(){}
@@ -95,5 +97,9 @@ public class User {
                 ", creationDate=" + creationDate +
                 ", emailAddress='" + emailAddress + '\'' +
                 '}';
+    }
+
+    public void encodePassword(){
+        this.password = Hashing.sha256().hashString(this.password, StandardCharsets.UTF_8).toString();
     }
 }
