@@ -1,6 +1,5 @@
 package com.suicidesquad.ChessSystem;
 
-import com.suicidesquad.ChessSystem.user.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
