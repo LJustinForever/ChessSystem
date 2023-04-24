@@ -51,7 +51,6 @@ public class Admin {
         this.username = username;
     }
 
-    @JsonIgnore
     public String getPassword() {
         return password;
     }
