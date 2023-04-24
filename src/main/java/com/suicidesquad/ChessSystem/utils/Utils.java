@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Utils {
+    public static final int ONE_DAY = 24*60*60;
+
     public Utils() {
     }
 

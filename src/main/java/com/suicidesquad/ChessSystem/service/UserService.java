@@ -75,6 +75,7 @@ public class UserService {
             user.setUsername(username);
         if(password != null && password.length() > 0 && !Objects.equals(user.getPassword(), encodeString(password)))
             user.setPassword(encodeString(password));
+        //TODO: NELEISTI CURRENCY KEISTI USERIUI REIK CHECKo
         if(currency.isPresent() && user.getCurrency() != currency.get())
             user.setCurrency(currency.get());
         if(emailAddress != null && emailAddress.length() > 0 && !Objects.equals(user.getEmailAddress(), emailAddress)){

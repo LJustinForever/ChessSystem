@@ -5,16 +5,15 @@ import com.suicidesquad.ChessSystem.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static com.suicidesquad.ChessSystem.utils.Utils.ONE_DAY;
 
 
 @RestController
@@ -22,8 +21,6 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-
-    private static final int ONE_DAY = 24*60*60;
 
     @Autowired
     public UserController(UserService userService){
