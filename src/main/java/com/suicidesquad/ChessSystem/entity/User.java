@@ -24,7 +24,7 @@ public class User {
     @Column(nullable = false)
     private int currency = 0;
     @Column(nullable = false)
-    private LocalDate creationDate;
+    private LocalDate creationDate = LocalDate.now();
     @Column(nullable = false, unique=true)
     private String emailAddress;
 

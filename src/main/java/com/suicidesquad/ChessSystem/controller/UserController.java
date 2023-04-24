@@ -34,9 +34,10 @@ public class UserController {
         userService.addNewUser(user);
     }
 
+
+
     @PostMapping("/login")
     public void loginUser(@RequestBody User user){
         userService.loginUser(user);
     }
-
 }
