@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface TextureRepository  extends JpaRepository<Texture, Long> {
 
-    @Query("SELECT t FROM Texture t WHERE t.path = ?1")
-    Optional<Texture> findByPath(String path);
+    @Query("SELECT t FROM Texture t WHERE t.name = ?1")
+    Optional<Texture> findByName(String fileName);
 }
