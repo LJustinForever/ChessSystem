@@ -10,6 +10,7 @@ import com.suicidesquad.ChessSystem.utils.Utils;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,12 @@ public class UserService {
         Optional<User> userById = userRepository.findById(id);
         if(userById.isPresent())
             return userById.get();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+    }
+    public User getUser(String email) {
+        Optional<User> userByEmail = userRepository.findUserByEmail(email);
+        if(userByEmail.isPresent())
+            return userByEmail.get();
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
     }
 
@@ -56,4 +63,11 @@ public class UserService {
     }
 
 
+    public void updateUser(Long userId, String username, String password, int currency, String emailAddress) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        if(!username.isEmpty() && username.length() > 0 && !Objects.equals(user.getUsername(), username))
+            user.setUsername(username);
+
+    }
 }

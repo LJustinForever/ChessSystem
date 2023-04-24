@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 @RestController
@@ -43,21 +44,29 @@ public class UserController {
         userService.addNewUser(user);
     }
 
-
-
     @PostMapping("/login")
     @ResponseBody
-    @CrossOrigin
-    public ResponseEntity<?> loginUser(@RequestBody User user, HttpServletResponse response) throws NoSuchAlgorithmException {
+    @CrossOrigin()
+    public Map<String, Long> loginUser(@RequestBody User user, HttpServletResponse response) throws NoSuchAlgorithmException {
         String jwtToken = userService.loginUser(user);
 
         Cookie cookie = new Cookie("id",jwtToken);
         cookie.setMaxAge(ONE_DAY);
-        cookie.setSecure(true);
+        cookie.setSecure(false);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         response.addCookie(cookie);
+        Map<String, Long> jsonResponse = new HashMap<>();
+        jsonResponse.put("id", userService.getUser(user.getEmailAddress()).getId());
+        return jsonResponse;
+    }
 
-        return new ResponseEntity<>(jwtToken, HttpStatus.OK);
+    @PutMapping("/update/{userId}")
+    public void updateUser(@PathVariable("userId") Long userId,
+                           @RequestParam(required = false) String username,
+                           @RequestParam(required = false) String password,
+                           @RequestParam(required = false) int currency,
+                           @RequestParam(required = false) String emailAddress){
+        userService.updateUser(userId, username, password, currency, emailAddress);
     }
 }
