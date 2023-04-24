@@ -47,6 +47,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
+    @CrossOrigin
     public ResponseEntity<?> loginUser(@RequestBody User user, HttpServletResponse response) throws NoSuchAlgorithmException {
         String jwtToken = userService.loginUser(user);
 
