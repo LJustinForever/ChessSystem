@@ -1,6 +1,7 @@
 package com.suicidesquad.ChessSystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import static com.suicidesquad.ChessSystem.utils.Utils.encodeString;
 
@@ -15,6 +16,7 @@ public class Admin {
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Column(nullable = false, unique = true)
     private String emailAddress;
@@ -51,6 +53,7 @@ public class Admin {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

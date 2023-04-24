@@ -2,6 +2,7 @@ package com.suicidesquad.ChessSystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.hash.Hashing;
 import jakarta.persistence.*;
 import static com.suicidesquad.ChessSystem.utils.Utils.encodeString;
@@ -21,6 +22,7 @@ public class User {
     @Column(nullable = false, unique=false)
     private String username;
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Column(nullable = false)
     private int currency = 0;
@@ -72,6 +74,7 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
