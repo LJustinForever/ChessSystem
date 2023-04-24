@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import com.suicidesquad.ChessSystem.utils.Utils;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,12 +45,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void loginUser(User user) {
+    public String loginUser(User user) throws NoSuchAlgorithmException {
         if(!userExists(user))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Email not found");
         user.encodePassword();
         if(!userRepository.findUserByEmailAndPassword(user.getEmailAddress(), user.getPassword()).isPresent())
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect Password");
+        Utils util = new Utils();
+        return util.generateJWT(user.toString());
     }
 
 
