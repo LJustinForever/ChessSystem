@@ -1,5 +1,6 @@
 package com.suicidesquad.ChessSystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import static com.suicidesquad.ChessSystem.utils.Utils.encodeString;
 
@@ -50,6 +51,7 @@ public class Admin {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
