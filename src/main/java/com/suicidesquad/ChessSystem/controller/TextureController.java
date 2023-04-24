@@ -20,16 +20,19 @@ public class TextureController {
     }
 
     @GetMapping
+    @CrossOrigin()
     public List<Texture> getTextures(){
         return textureService.getTextures();
     }
 
     @PostMapping("/add")
+    @CrossOrigin()
     public void addTexture(@RequestBody Texture texture) throws IOException {
         textureService.addNewTexture(texture);
     }
 
     @DeleteMapping("/{textureId}")
+    @CrossOrigin()
     public void deleteTexture(@PathVariable("textureId") Long id){
         textureService.deleteTexture(id);
     }
