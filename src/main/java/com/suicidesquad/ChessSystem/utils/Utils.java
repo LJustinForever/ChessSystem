@@ -2,7 +2,9 @@ package com.suicidesquad.ChessSystem.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator.Builder;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.google.common.hash.Hashing;
 
+import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -16,7 +18,7 @@ public class Utils {
     public Utils() {
     }
 
-    public String generateJWT(String payload) throws NoSuchAlgorithmException {
+    public static String generateJWT(String payload) throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(2048);
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
@@ -29,5 +31,9 @@ public class Utils {
 
         tokenBuilder.withClaim(payload, payload);
         return  tokenBuilder.sign(Algorithm.RSA256(((RSAPublicKey) keyPair.getPublic()), ((RSAPrivateKey) keyPair.getPrivate())));
+    }
+
+     public static String encodeString(String payload){
+        return Hashing.sha256().hashString(payload, StandardCharsets.UTF_8).toString();
     }
 }

@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @RestController
@@ -65,7 +66,7 @@ public class UserController {
     public void updateUser(@PathVariable("userId") Long userId,
                            @RequestParam(required = false) String username,
                            @RequestParam(required = false) String password,
-                           @RequestParam(required = false) int currency,
+                           @RequestParam(required = false) Optional<Integer> currency,
                            @RequestParam(required = false) String emailAddress){
         userService.updateUser(userId, username, password, currency, emailAddress);
     }

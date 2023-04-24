@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.common.hash.Hashing;
 import jakarta.persistence.*;
+import static com.suicidesquad.ChessSystem.utils.Utils.encodeString;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -108,7 +109,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", currency=" + currency +
                 ", creationDate=" + creationDate +
                 ", emailAddress='" + emailAddress + '\'' +
@@ -116,6 +116,6 @@ public class User {
     }
 
     public void encodePassword(){
-        this.password = Hashing.sha256().hashString(this.password, StandardCharsets.UTF_8).toString();
+        this.password = encodeString(this.password);
     }
 }

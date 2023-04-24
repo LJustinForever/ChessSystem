@@ -2,11 +2,13 @@ package com.suicidesquad.ChessSystem.service;
 
 import com.suicidesquad.ChessSystem.entity.User;
 import com.suicidesquad.ChessSystem.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.suicidesquad.ChessSystem.utils.Utils;
+import static com.suicidesquad.ChessSystem.utils.Utils.generateJWT;
+import static com.suicidesquad.ChessSystem.utils.Utils.encodeString;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -45,6 +47,11 @@ public class UserService {
         return userByEmail.isPresent();
     }
 
+    public boolean userExists(String email){
+        Optional<User> userByEmail = userRepository.findUserByEmail(email);
+        return userByEmail.isPresent();
+    }
+
     public void addNewUser(User user) {
         if(userExists(user))
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email Address is taken");
@@ -58,16 +65,22 @@ public class UserService {
         user.encodePassword();
         if(!userRepository.findUserByEmailAndPassword(user.getEmailAddress(), user.getPassword()).isPresent())
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect Password");
-        Utils util = new Utils();
-        return util.generateJWT(user.toString());
+        return generateJWT(user.toString());
     }
 
-
-    public void updateUser(Long userId, String username, String password, int currency, String emailAddress) {
+    @Transactional
+    public void updateUser(Long userId, String username, String password, Optional<Integer> currency, String emailAddress) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-
-        if(!username.isEmpty() && username.length() > 0 && !Objects.equals(user.getUsername(), username))
+        if(username != null && username.length() > 0 && !Objects.equals(user.getUsername(), username))
             user.setUsername(username);
-
+        if(password != null && password.length() > 0 && !Objects.equals(user.getPassword(), encodeString(password)))
+            user.setPassword(encodeString(password));
+        if(currency.isPresent() && user.getCurrency() != currency.get())
+            user.setCurrency(currency.get());
+        if(emailAddress != null && emailAddress.length() > 0 && !Objects.equals(user.getEmailAddress(), emailAddress)){
+            if(userExists(emailAddress))
+               throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is taken");
+            user.setEmailAddress(emailAddress);
+        }
     }
 }
