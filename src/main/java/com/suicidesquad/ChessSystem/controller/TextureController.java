@@ -31,8 +31,8 @@ public class TextureController {
 
     @PostMapping("/add")
     @CrossOrigin()
-    public void uploadTexture(@RequestParam("image")MultipartFile file) throws IOException {
-        textureService.uploadTexture(file);
+    public void uploadTexture(@RequestBody Texture texture) throws IOException {
+        textureService.uploadTexture(texture);
     }
 
     @GetMapping("/{filename}")

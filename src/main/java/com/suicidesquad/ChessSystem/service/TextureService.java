@@ -38,14 +38,11 @@ public class TextureService {
         return textureRepository.findById(id).isPresent();
     }
 
-    public void uploadTexture(MultipartFile file) throws IOException {
-        Optional<Texture> texByName = textureRepository.findByName(file.getOriginalFilename());
+    public void uploadTexture(Texture texture) throws IOException {
+        Optional<Texture> texByName = textureRepository.findByName(texture.getName());
         if(texByName.isPresent())
             throw new ResponseStatusException(HttpStatus.CONFLICT, "File name exists");
-        textureRepository.save(Texture.builder()
-                .name(file.getOriginalFilename())
-                        .type(file.getContentType())
-                .imageData(compressImage(file.getBytes())).build());
+        textureRepository.save(texture);
     }
 
     public byte[] downloadImage(String filename){
