@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,9 @@ public class TextureService {
     }
 
     public void uploadTexture(MultipartFile file) throws IOException {
+        Optional<Texture> texByName = textureRepository.findByName(file.getOriginalFilename());
+        if(texByName.isPresent())
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "File name exists");
         textureRepository.save(Texture.builder()
                 .name(file.getOriginalFilename())
                         .type(file.getContentType())
