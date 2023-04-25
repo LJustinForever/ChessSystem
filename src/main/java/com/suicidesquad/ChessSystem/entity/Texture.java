@@ -28,19 +28,19 @@ public class Texture {
     private final Set<Inventory> inventories = new HashSet<>();
     @Lob
     @Column(length = 2097152)
-    private byte[] imageData;
+    private String imageData;
 
 
     public Texture() {
     }
 
-    public Texture(String name, String type, byte[] imageData) {
+    public Texture(String name, String type, String imageData) {
         this.name = name;
         this.type = type;
         this.imageData = imageData;
     }
 
-    public Texture(Long id, String name, String type, byte[] imageData) {
+    public Texture(Long id, String name, String type, String imageData) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -76,11 +76,11 @@ public class Texture {
         this.type = type;
     }
 
-    public byte[] getImageData() {
+    public String getImageData() {
         return imageData;
     }
 
-    public void setImageData(byte[] imageData) {
+    public void setImageData(String imageData) {
         this.imageData = imageData;
     }
 }

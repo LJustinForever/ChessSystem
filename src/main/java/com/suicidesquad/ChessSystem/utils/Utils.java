@@ -42,12 +42,12 @@ public class Utils {
      public static String encodeString(String payload){
         return Hashing.sha256().hashString(payload, StandardCharsets.UTF_8).toString();
     }
-    public static byte[] compressImage(byte[] data) {
-        byte[] encoded = Base64.getEncoder().encode(data);
+    public static String compressImage(byte[] data) {
+        String encoded = Base64.getEncoder().encodeToString(data);
         return encoded;
     }
 
-    public static byte[] decompressImage(byte[] data) {
+    public static byte[] decompressImage(String data) {
         byte[] decoded = Base64.getDecoder().decode(data);
         return decoded;
     }
