@@ -22,6 +22,7 @@ public class InventoryController {
     }
 
     @PostMapping(value= {"/add/{textureId}/{userId}", "/add/{textureId}"})
+    @CrossOrigin()
     public void addTextureToUser(@PathVariable("textureId") Long textureId, @PathVariable("userId") Long userId){
         System.out.println(userId.toString());
         System.out.println(textureId.toString());
@@ -29,6 +30,7 @@ public class InventoryController {
     }
 
     @GetMapping("/{userId}")
+    @CrossOrigin()
     public List<Inventory> getUserInventory(@PathVariable("userId") Long userId){
         return inventoryService.getUserInventory(userId);
     }

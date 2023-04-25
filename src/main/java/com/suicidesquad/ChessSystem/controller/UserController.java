@@ -28,16 +28,19 @@ public class UserController {
     }
 
     @GetMapping
+    @CrossOrigin()
     public List<User> getUsers(){
         return userService.getUsers();
     }
 
     @GetMapping("/{userId}")
+    @CrossOrigin()
     public User getUser(@PathVariable("userId") Long id){
         return userService.getUser(id);
     }
 
     @PostMapping("/register")
+    @CrossOrigin()
     public void registerUser(@RequestBody User user){
         userService.addNewUser(user);
     }
@@ -60,6 +63,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{userId}")
+    @CrossOrigin()
     public void updateUser(@PathVariable("userId") Long userId,
                            @RequestParam(required = false) String username,
                            @RequestParam(required = false) String password,
