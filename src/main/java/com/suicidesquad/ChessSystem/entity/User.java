@@ -14,11 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table
-public class User {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long id;
+public class User extends Guest {
     @Column(nullable = false, unique=false)
     private String username;
     @Column(nullable = false)
@@ -37,15 +33,6 @@ public class User {
 
     public User(){}
 
-    public User(Long id, String username, String password, int currency, LocalDate creationDate, String emailAddress) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.currency = currency;
-        this.creationDate = creationDate;
-        this.emailAddress = emailAddress;
-    }
-
     public User(String username, String password, int currency, LocalDate creationDate, String emailAddress) {
         this.username = username;
         this.password = password;
@@ -63,7 +50,7 @@ public class User {
     }
 
     public Long getId() {
-        return id;
+        return getGuestId();
     }
 
     public String getUsername() {
@@ -110,7 +97,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + getGuestId() +
                 ", username='" + username + '\'' +
                 ", currency=" + currency +
                 ", creationDate=" + creationDate +
