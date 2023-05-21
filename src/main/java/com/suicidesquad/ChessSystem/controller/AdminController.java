@@ -39,7 +39,7 @@ public class AdminController {
 
     @PostMapping("/register")
     @CrossOrigin()
-    public void registerAdmin(@RequestBody Admin admin){
+    public void registerAdmin(Admin admin){
         adminService.addNewAdmin(admin);
     }
 

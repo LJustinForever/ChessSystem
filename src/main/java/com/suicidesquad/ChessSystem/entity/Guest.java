@@ -11,10 +11,18 @@ public abstract class Guest {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = true)
-    private User_status result;
+    private User_status status;
+
+    public Guest() {
+        this.status = User_status.active;
+    }
 
     public Long getGuestId() {
         return id;
+    }
+
+    public User_status getGuestStatus() {
+        return status;
     }
 
     // Getters and Setters

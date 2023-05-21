@@ -1,5 +1,6 @@
  package com.suicidesquad.ChessSystem.controller;
 
+ import com.suicidesquad.ChessSystem.entity.Guest;
  import com.suicidesquad.ChessSystem.entity.Inventory;
  import com.suicidesquad.ChessSystem.entity.Texture;
  import com.suicidesquad.ChessSystem.service.GameService;
@@ -21,4 +22,9 @@
          this.gameService = gameService;
      }
 
+     @PostMapping("/createTemp")
+     @CrossOrigin()
+     public Long createTemp(@RequestBody Guest guest){
+         return gameService.createTemp(guest);
+     }
  }
