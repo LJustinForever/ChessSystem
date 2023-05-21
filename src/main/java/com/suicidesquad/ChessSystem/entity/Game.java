@@ -28,12 +28,12 @@ public class Game {
 
     @ManyToOne
     @JoinColumn(name = "white", nullable = false)
-    private User white;
+    private Guest white;
     @ManyToOne
     @JoinColumn(name = "black", nullable = false)
-    private User black;
+    private Guest black;
 
-    public Game(User white, User black) {
+    public Game(Guest white, Guest black) {
         this.state = Game_state.active;
         this.white = white;
         this.black = black;

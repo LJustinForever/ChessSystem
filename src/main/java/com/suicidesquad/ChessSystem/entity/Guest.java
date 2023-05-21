@@ -9,6 +9,9 @@ public abstract class Guest {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = true)
+    private String socket;
+
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = true)
     private User_status status;
@@ -27,6 +30,10 @@ public abstract class Guest {
 
     public void setStatus(User_status status) {
         this.status = status;
+    }
+
+    public User_status getStatus() {
+        return status;
     }
 
     // Getters and Setters
