@@ -1,9 +1,6 @@
 package com.suicidesquad.ChessSystem.service;
 
-import com.suicidesquad.ChessSystem.entity.Guest;
-import com.suicidesquad.ChessSystem.entity.Inventory;
-import com.suicidesquad.ChessSystem.entity.Texture;
-import com.suicidesquad.ChessSystem.entity.User;
+import com.suicidesquad.ChessSystem.entity.*;
 import com.suicidesquad.ChessSystem.repository.GuestRepository;
 import com.suicidesquad.ChessSystem.repository.InventoryRepository;
 import com.suicidesquad.ChessSystem.repository.TextureRepository;
@@ -24,7 +21,8 @@ public class GameService {
         this.guestRepository = guestRepository;
     }
 
-    public Long createTemp(Guest guest) {
+    public Long createTemp() {
+        Guests guest = new Guests();
         Guest savedGuest = guestRepository.save(guest);
         return savedGuest.getGuestId();
     }

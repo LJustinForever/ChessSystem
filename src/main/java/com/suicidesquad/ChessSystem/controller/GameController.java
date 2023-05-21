@@ -3,6 +3,7 @@
  import com.suicidesquad.ChessSystem.entity.Guest;
  import com.suicidesquad.ChessSystem.entity.Inventory;
  import com.suicidesquad.ChessSystem.entity.Texture;
+ import com.suicidesquad.ChessSystem.entity.User_status;
  import com.suicidesquad.ChessSystem.service.GameService;
  import com.suicidesquad.ChessSystem.service.TextureService;
  import com.suicidesquad.ChessSystem.service.UserService;
@@ -22,9 +23,15 @@
          this.gameService = gameService;
      }
 
-     @PostMapping("/createTemp")
+     @GetMapping("/createTemp")
      @CrossOrigin()
-     public Long createTemp(@RequestBody Guest guest){
-         return gameService.createTemp(guest);
+     public Long createTemp(){
+         return gameService.createTemp();
      }
+
+//     @PostMapping("/startUnrated/{id}")
+//     @CrossOrigin()
+//     public Long createTemp(@PathVariable("textureId") Long textureId){
+//         return gameService.createTemp(guest);
+//     }
  }

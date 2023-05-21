@@ -25,6 +25,10 @@ public abstract class Guest {
         return status;
     }
 
+    public void setStatus(User_status status) {
+        this.status = status;
+    }
+
     // Getters and Setters
     // Constructors
     // Other methods
