@@ -37,4 +37,16 @@
      public User_status getStatus(@PathVariable("id") Long id){
          return gameService.getStatus(id);
      }
+
+     @GetMapping("/confirm/{id}")
+     @CrossOrigin()
+     public User_status confirm(@PathVariable("id") Long id){
+         return gameService.confirm(id);
+     }
+
+     @GetMapping("/decline/{id}")
+     @CrossOrigin()
+     public User_status decline(@PathVariable("id") Long id){
+         return gameService.decline(id);
+     }
  }

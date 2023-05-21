@@ -73,4 +73,34 @@ public class GameService {
             return null;
         }
     }
+
+    public User_status confirm(Long userId) {
+        Optional<Guest> userOptional = guestRepository.findById(userId);
+        if(userOptional.isPresent())
+        {
+            Guest user = userOptional.get();
+            user.setStatus(User_status.confirmed);
+
+            guestRepository.save(user);
+            return user.getStatus();
+        }
+        else {
+            return null;
+        }
+    }
+
+    public User_status decline(Long userId) {
+        Optional<Guest> userOptional = guestRepository.findById(userId);
+        if(userOptional.isPresent())
+        {
+            Guest user = userOptional.get();
+            user.setStatus(User_status.active);
+
+            guestRepository.save(user);
+            return user.getStatus();
+        }
+        else {
+            return null;
+        }
+    }
 }
