@@ -69,7 +69,7 @@ public class GameService {
                 }
             }
             else if (user.getStatus() == User_status.confirmed){
-                Optional<Game> gameOptional = gameRepository.findFirstByBlackOrWhiteAndState(user, user, Game_state.active);
+                Optional<Game> gameOptional = gameRepository.findFirstByUsersAndState(user, Game_state.active);
                 if(gameOptional.isPresent()) {
                     Game game = gameOptional.get();
                     Guest opponent;

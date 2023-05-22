@@ -11,5 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
-    Optional<Game> findFirstByBlackOrWhiteAndState(Guest black, Guest white, Game_state state);
+    @Query("SELECT g FROM Game g WHERE (g.black = :user OR g.white = :user) AND g.state = :state")
+    Optional<Game> findFirstByUsersAndState(@Param("user") Guest user, @Param("state") Game_state state);
 }
