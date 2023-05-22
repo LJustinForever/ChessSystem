@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
@@ -65,6 +66,30 @@ public class GameService {
                     guestRepository.save(opponent);
                     user.setStatus(User_status.waiting_for_confirmation);
                     guestRepository.save(user);
+                }
+            }
+            else if (user.getStatus() == User_status.confirmed){
+                Optional<Game> gameOptional = gameRepository.findFirstByBlackIsOrWhiteIsAndStateIs(user, user, Game_state.active);
+                if(gameOptional.isPresent()) {
+                    Game game = gameOptional.get();
+                    Guest opponent;
+                    if(Objects.equals(game.getWhiteId(), user.getGuestId())) {
+                        opponent = guestRepository.findById(game.getBlackId()).get();
+                    }
+                    else {
+                        opponent = guestRepository.findById(game.getWhiteId()).get();
+                    }
+                    if(opponent.getStatus() == User_status.confirmed) {
+                        user.setStatus(User_status.playing);
+                        opponent.setStatus(User_status.playing);
+                        guestRepository.save(user);
+                        guestRepository.save(opponent);
+                    }
+                    else if(opponent.getStatus() == User_status.active) {
+                        user.setStatus(User_status.searching_game);
+                        guestRepository.save(user);
+                        gameRepository.delete(game);
+                    }
                 }
             }
             return user.getStatus();

@@ -38,4 +38,12 @@ public class Game {
         this.white = white;
         this.black = black;
     }
+
+    public Long getWhiteId(){
+        return white.getGuestId();
+    }
+
+    public Long getBlackId(){
+        return black.getGuestId();
+    }
 }
