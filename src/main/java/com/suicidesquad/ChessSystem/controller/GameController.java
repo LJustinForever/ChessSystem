@@ -49,4 +49,10 @@
      public User_status decline(@PathVariable("id") Long id){
          return gameService.decline(id);
      }
+
+     @GetMapping("/getGame/{id}")
+     @CrossOrigin()
+     public Long getGame(@PathVariable("id") Long id){
+         return gameService.getGame(id);
+     }
  }

@@ -33,6 +33,9 @@ public class Game {
     @JoinColumn(name = "black", nullable = false)
     private Guest black;
 
+    public Game() {
+    }
+
     public Game(Guest white, Guest black) {
         this.state = Game_state.active;
         this.white = white;
@@ -45,5 +48,9 @@ public class Game {
 
     public Long getBlackId(){
         return black.getGuestId();
+    }
+
+    public Long getId(){
+        return id;
     }
 }

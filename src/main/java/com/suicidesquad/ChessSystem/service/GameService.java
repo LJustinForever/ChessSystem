@@ -128,4 +128,21 @@ public class GameService {
             return null;
         }
     }
+
+    public Long getGame(Long userId) {
+        Optional<Guest> userOptional = guestRepository.findById(userId);
+        if(userOptional.isPresent())
+        {
+            Guest user = userOptional.get();
+            Optional<Game> gameOptional = gameRepository.findFirstByUsersAndState(user, Game_state.active);
+            if(gameOptional.isPresent()) {
+                Game game = gameOptional.get();
+                return game.getId();
+            }
+        }
+        else {
+            return null;
+        }
+        return null;
+    }
 }
