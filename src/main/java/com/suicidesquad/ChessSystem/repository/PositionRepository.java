@@ -1,5 +1,6 @@
 package com.suicidesquad.ChessSystem.repository;
 
+import com.suicidesquad.ChessSystem.entity.Game;
 import com.suicidesquad.ChessSystem.entity.Inventory;
 import com.suicidesquad.ChessSystem.entity.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +10,5 @@ import java.util.Set;
 
 @Repository
 public interface PositionRepository extends JpaRepository<Position, Long> {
-    public Set<Position> findAllByGameId(Long gameId);
+    public Set<Position> findAllByGameId(Game game);
 }

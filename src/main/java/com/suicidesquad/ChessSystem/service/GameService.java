@@ -220,7 +220,7 @@ public class GameService {
             Guest guest = userOptional.get();
             List<Game> games = gameRepository.findAllByUsersAndState(guest, Game_state.ended);
             Game game = games.get(0);
-            game.setPositions(positionRepository.findAllByGameId(game.getId()));
+            game.setPositions(positionRepository.findAllByGameId(game));
             return game;
         }
         return null;
