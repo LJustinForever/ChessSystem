@@ -90,7 +90,7 @@ public class GameService {
                         positionRepository.save(position);
                     }
                     else if(opponent.getStatus() == User_status.active) {
-                        user.setStatus(User_status.searching_game);
+                        user.setStatus(User_status.active);
                         guestRepository.save(user);
                         gameRepository.delete(game);
                     }

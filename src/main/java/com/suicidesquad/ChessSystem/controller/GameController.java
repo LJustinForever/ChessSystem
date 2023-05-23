@@ -70,7 +70,8 @@
      @MessageMapping("/makeMove/{gameId}")
      @SendTo("/getMove/game/{gameId}")
      @CrossOrigin()
-     public String makeMove(@DestinationVariable("gameId") Long gameId, @RequestBody Map<String, Object> payload){
+     public String makeMove(@DestinationVariable("gameId") Long gameId, @RequestBody String payload){
+         System.console().printf(payload.toString());
          String fen = String.valueOf(payload);
          gameService.savePosition(fen, gameId);
          return fen;
