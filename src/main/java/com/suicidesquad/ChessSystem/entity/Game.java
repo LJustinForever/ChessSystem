@@ -73,4 +73,12 @@ public class Game {
     public void setState(Game_state state) {
         this.state = state;
     }
+
+    public Set<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(Set<Position> positions) {
+        this.positions = positions;
+    }
 }

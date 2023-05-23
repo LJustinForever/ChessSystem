@@ -14,7 +14,7 @@ public class Position {
     private int move;
 
     @ManyToOne
-    @JoinColumn(name = "game_id", nullable = false)
+    @JoinColumn(name = "gameId", nullable = false)
     private Game gameId;
 
     public Position() {

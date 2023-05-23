@@ -219,7 +219,9 @@ public class GameService {
         if(userOptional.isPresent()) {
             Guest guest = userOptional.get();
             List<Game> games = gameRepository.findAllByUsersAndState(guest, Game_state.ended);
-            return games.get(0);
+            Game game = games.get(0);
+            game.setPositions(positionRepository.findAllByGameId(game.getId()));
+            return game;
         }
         return null;
     }
