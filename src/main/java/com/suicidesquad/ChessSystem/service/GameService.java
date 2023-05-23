@@ -2,10 +2,13 @@ package com.suicidesquad.ChessSystem.service;
 
 import com.suicidesquad.ChessSystem.entity.*;
 import com.suicidesquad.ChessSystem.repository.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -209,5 +212,15 @@ public class GameService {
             guest.setStatus(User_status.active);
             guestRepository.save(guest);
         }
+    }
+
+    public Game lastGame(Long userId) {
+        Optional<Guest> userOptional = guestRepository.findById(userId);
+        if(userOptional.isPresent()) {
+            Guest guest = userOptional.get();
+            List<Game> games = gameRepository.findAllByUsersAndState(guest, Game_state.ended);
+            return games.get(0);
+        }
+        return null;
     }
 }

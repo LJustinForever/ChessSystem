@@ -1,6 +1,7 @@
  package com.suicidesquad.ChessSystem.controller;
 
 
+ import com.suicidesquad.ChessSystem.entity.Game;
  import com.suicidesquad.ChessSystem.entity.User_status;
  import com.suicidesquad.ChessSystem.service.GameService;
  import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -80,5 +81,11 @@
      @CrossOrigin()
      public void getColor(@PathVariable("gameId") Long gameId, @RequestBody String payload){
          gameService.endGame(gameId, Double.parseDouble(payload));
+     }
+
+     @GetMapping("/lastGame/{userId}")
+     @CrossOrigin()
+     public Game lastGame(@PathVariable("userId") Long userId){
+         return gameService.lastGame(userId);
      }
  }
