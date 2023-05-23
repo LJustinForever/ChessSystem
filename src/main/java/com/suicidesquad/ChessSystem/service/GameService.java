@@ -180,4 +180,33 @@ public class GameService {
             positionRepository.save(position);
         }
     }
+
+    public void endGame(Long gameId, double result) {
+        Optional<Game> gameOptional = gameRepository.findById(gameId);
+        if(gameOptional.isPresent()) {
+            Game game = gameOptional.get();
+            if(result == 1) {
+                game.setResult(End_game.white_won);
+            }
+            else if (result == 0.5) {
+                game.setResult(End_game.draw);
+            }
+            else {
+                game.setResult(End_game.black_won);
+            }
+            gameRepository.save(game);
+            Long white = game.getWhiteId();
+            Long black = game.getBlackId();
+
+            Optional<Guest> optionalGuest = guestRepository.findById(white);
+            Guest guest = optionalGuest.get();
+            guest.setStatus(User_status.active);
+            guestRepository.save(guest);
+
+            optionalGuest = guestRepository.findById(black);
+            guest = optionalGuest.get();
+            guest.setStatus(User_status.active);
+            guestRepository.save(guest);
+        }
+    }
 }

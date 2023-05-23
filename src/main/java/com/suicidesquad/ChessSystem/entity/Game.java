@@ -57,4 +57,12 @@ public class Game {
     public Long getId(){
         return id;
     }
+
+    public End_game getResult() {
+        return result;
+    }
+
+    public void setResult(End_game result) {
+        this.result = result;
+    }
 }

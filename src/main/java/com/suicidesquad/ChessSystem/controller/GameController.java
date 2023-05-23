@@ -75,4 +75,10 @@
          gameService.savePosition(fen, gameId);
          return fen;
      }
+
+     @PostMapping("/endGame/{gameId}")
+     @CrossOrigin()
+     public void getColor(@PathVariable("id") Long gameId, @RequestBody double payload){
+         gameService.endGame(gameId, payload);
+     }
  }
