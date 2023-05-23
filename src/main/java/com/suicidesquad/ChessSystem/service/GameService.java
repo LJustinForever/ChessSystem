@@ -86,7 +86,7 @@ public class GameService {
                         opponent.setStatus(User_status.playing);
                         guestRepository.save(user);
                         guestRepository.save(opponent);
-                        Position position = new Position("rnbqkbnr/pppppppp/xxxxxxxx/xxxxxxxx/xxxxxxxx/xxxxxxxx/PPPPPPPP/RNBQKBNR", 0, game);
+                        Position position = new Position("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", 0, game);
                         positionRepository.save(position);
                     }
                     else if(opponent.getStatus() == User_status.active) {
@@ -170,5 +170,14 @@ public class GameService {
             return null;
         }
         return null;
+    }
+
+    public void savePosition(String fen, Long gameId) {
+        Optional<Game> gameOptional = gameRepository.findById(gameId);
+        if(gameOptional.isPresent()) {
+            Game game = gameOptional.get();
+            Position position = new Position(fen, 0, game);
+            positionRepository.save(position);
+        }
     }
 }
