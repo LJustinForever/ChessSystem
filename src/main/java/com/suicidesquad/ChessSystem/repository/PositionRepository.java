@@ -10,5 +10,5 @@ import java.util.Set;
 
 @Repository
 public interface PositionRepository extends JpaRepository<Position, Long> {
-    public Set<Position> findAllByGameId(Game game);
+    public Set<Position> findAllByGameIdOrderById(Game game);
 }
