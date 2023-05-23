@@ -78,7 +78,7 @@
 
      @PostMapping("/endGame/{gameId}")
      @CrossOrigin()
-     public void getColor(@PathVariable("id") Long gameId, @RequestBody String payload){
+     public void getColor(@PathVariable("gameId") Long gameId, @RequestBody String payload){
          gameService.endGame(gameId, Double.parseDouble(payload));
      }
  }
