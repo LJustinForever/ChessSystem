@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.awt.print.Pageable;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class GameService {
@@ -214,14 +211,14 @@ public class GameService {
         }
     }
 
-    public Game lastGame(Long userId) {
+    public Set<Position> lastGame(Long userId) {
         Optional<Guest> userOptional = guestRepository.findById(userId);
         if(userOptional.isPresent()) {
             Guest guest = userOptional.get();
             List<Game> games = gameRepository.findAllByUsersAndState(guest, Game_state.ended);
             Game game = games.get(0);
-            game.setPositions(positionRepository.findAllByGameId(game));
-            return game;
+            Set<Position> positions = game.getPositions();
+            return positions;
         }
         return null;
     }

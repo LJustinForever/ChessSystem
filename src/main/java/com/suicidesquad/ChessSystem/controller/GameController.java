@@ -2,6 +2,7 @@
 
 
  import com.suicidesquad.ChessSystem.entity.Game;
+ import com.suicidesquad.ChessSystem.entity.Position;
  import com.suicidesquad.ChessSystem.entity.User_status;
  import com.suicidesquad.ChessSystem.service.GameService;
  import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -15,6 +16,7 @@
  import java.util.Date;
  import java.util.List;
  import java.util.Map;
+ import java.util.Set;
 
  @RestController
  @RequestMapping("api/game")
@@ -85,7 +87,7 @@
 
      @GetMapping("/lastGame/{userId}")
      @CrossOrigin()
-     public Game lastGame(@PathVariable("userId") Long userId){
+     public Set<Position> lastGame(@PathVariable("userId") Long userId){
          return gameService.lastGame(userId);
      }
  }
