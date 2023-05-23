@@ -87,7 +87,7 @@
 
      @GetMapping("/lastGame/{userId}")
      @CrossOrigin()
-     public Set<Position> lastGame(@PathVariable("userId") Long userId){
+     public List<Position> lastGame(@PathVariable("userId") Long userId){
          return gameService.lastGame(userId);
      }
  }

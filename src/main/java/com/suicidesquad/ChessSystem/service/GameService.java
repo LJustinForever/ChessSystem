@@ -211,13 +211,13 @@ public class GameService {
         }
     }
 
-    public Set<Position> lastGame(Long userId) {
+    public List<Position> lastGame(Long userId) {
         Optional<Guest> userOptional = guestRepository.findById(userId);
         if(userOptional.isPresent()) {
             Guest guest = userOptional.get();
             List<Game> games = gameRepository.findAllByUsersAndState(guest, Game_state.ended);
             Game game = games.get(0);
-            Set<Position> positions = game.getPositions();
+            List<Position> positions = positionRepository.findAllByGameIdOrderById(game);
             return positions;
         }
         return null;
