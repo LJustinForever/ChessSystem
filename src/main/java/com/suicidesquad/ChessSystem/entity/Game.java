@@ -33,6 +33,10 @@ public class Game {
     @JoinColumn(name = "black", nullable = false)
     private Guest black;
 
+    @OneToMany(mappedBy = "gameId")
+    @JsonIgnore
+    private Set<Position> positions = new HashSet<>();
+
     public Game() {
     }
 

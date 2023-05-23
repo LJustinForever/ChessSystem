@@ -16,10 +16,12 @@ public class GameService {
 
     private final GuestRepository guestRepository;
     private final GameRepository gameRepository;
+    private final PositionRepository positionRepository;
 
-    public GameService(GuestRepository guestRepository, GameRepository gameRepository) {
+    public GameService(GuestRepository guestRepository, GameRepository gameRepository, PositionRepository positionRepository) {
         this.guestRepository = guestRepository;
         this.gameRepository = gameRepository;
+        this.positionRepository = positionRepository;
     }
 
     public Long createTemp() {
@@ -84,6 +86,8 @@ public class GameService {
                         opponent.setStatus(User_status.playing);
                         guestRepository.save(user);
                         guestRepository.save(opponent);
+                        Position position = new Position("rnbqkbnr/pppppppp/xxxxxxxx/xxxxxxxx/xxxxxxxx/xxxxxxxx/PPPPPPPP/RNBQKBNR", 0, game);
+                        positionRepository.save(position);
                     }
                     else if(opponent.getStatus() == User_status.active) {
                         user.setStatus(User_status.searching_game);

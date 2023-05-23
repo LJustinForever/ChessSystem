@@ -3,12 +3,17 @@
 
  import com.suicidesquad.ChessSystem.entity.User_status;
  import com.suicidesquad.ChessSystem.service.GameService;
+ import org.springframework.messaging.handler.annotation.DestinationVariable;
+ import org.springframework.messaging.handler.annotation.MessageMapping;
+ import org.springframework.messaging.handler.annotation.SendTo;
+ import org.springframework.messaging.simp.annotation.SendToUser;
  import org.springframework.web.bind.annotation.*;
 
  import java.io.IOException;
  import java.text.SimpleDateFormat;
  import java.util.Date;
  import java.util.List;
+ import java.util.Map;
 
  @RestController
  @RequestMapping("api/game")
@@ -54,5 +59,13 @@
      @CrossOrigin()
      public Long getGame(@PathVariable("id") Long id){
          return gameService.getGame(id);
+     }
+
+     @MessageMapping("/makeMove/{gameId}")
+     @SendTo("/getMove/game/{gameId}")
+     @CrossOrigin()
+     public User_status makeMove(@DestinationVariable("gameId") String gameId, @RequestBody Map<String, Object> payload){
+         Long NX = Long.parseLong(String.valueOf(payload.get("id")));
+         return gameService.getStatus(NX);
      }
  }
