@@ -65,4 +65,12 @@ public class Game {
     public void setResult(End_game result) {
         this.result = result;
     }
+
+    public Game_state getState() {
+        return state;
+    }
+
+    public void setState(Game_state state) {
+        this.state = state;
+    }
 }

@@ -194,6 +194,7 @@ public class GameService {
             else {
                 game.setResult(End_game.black_won);
             }
+            game.setState(Game_state.ended);
             gameRepository.save(game);
             Long white = game.getWhiteId();
             Long black = game.getBlackId();
