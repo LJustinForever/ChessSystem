@@ -149,4 +149,26 @@ public class GameService {
         }
         return null;
     }
+
+    public String getColor(Long userId) {
+        Optional<Guest> userOptional = guestRepository.findById(userId);
+        if(userOptional.isPresent())
+        {
+            Guest user = userOptional.get();
+            Optional<Game> gameOptional = gameRepository.findFirstByUsersAndState(user, Game_state.active);
+            if(gameOptional.isPresent()) {
+                Game game = gameOptional.get();
+                if(Objects.equals(game.getWhiteId(), user.getGuestId())) {
+                    return "White";
+                }
+                else {
+                    return "Black";
+                }
+            }
+        }
+        else {
+            return null;
+        }
+        return null;
+    }
 }

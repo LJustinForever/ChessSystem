@@ -61,6 +61,12 @@
          return gameService.getGame(id);
      }
 
+     @GetMapping("/getColor/{id}")
+     @CrossOrigin()
+     public String getColor(@PathVariable("id") Long id){
+         return gameService.getColor(id);
+     }
+
      @MessageMapping("/makeMove/{gameId}")
      @SendTo("/getMove/game/{gameId}")
      @CrossOrigin()
